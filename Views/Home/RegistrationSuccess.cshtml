@@ -1,0 +1,90 @@
+﻿@model HealthCareSystem.Models.User
+@{
+    ViewData["Title"] = "Registration Successful";
+}
+
+<style>
+    .main-container {
+        display: flex;
+        margin-top: 50px;
+        gap: 50px;
+    }
+
+    .menu-table {
+        border: 2px solid #1e4f8a;
+        border-radius: 6px;
+        background-color: white;
+        width: 200px;
+    }
+
+        .menu-table td {
+            border-bottom: 1px solid #1e4f8a;
+            text-align: center;
+        }
+
+            .menu-table td a {
+                text-decoration: none;
+                color: #1e4f8a;
+                font-weight: bold;
+                display: block;
+                padding: 12px;
+            }
+
+                .menu-table td a:hover {
+                    background-color: #1e4f8a;
+                    color: white;
+                    border-radius: 4px;
+                }
+
+    .success-container {
+        background-color: rgba(255,255,255,0.95);
+        padding: 25px;
+        border-radius: 8px;
+        width: 600px;
+        text-align: center;
+    }
+
+        .success-container h2 {
+            background-color: #1e4f8a;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .success-container a {
+            text-decoration: underline;
+            color: #1e4f8a;
+            font-weight: bold;
+        }
+
+            .success-container a:hover {
+                color: #163f6d;
+            }
+</style>
+
+<div class="text-center" style="margin-bottom:30px;">
+    <h1 style="background-color:#1e4f8a;color:white;padding:12px 45px;border-radius:6px;">HOSPITAL MANAGEMENT SYSTEM</h1>
+</div>
+
+<div class="container main-container">
+    <!-- LEFT MENU -->
+    <table class="table menu-table text-center">
+        <tbody>
+            <tr><td>@Html.ActionLink("Home", "Index", "Home")</td></tr>
+            <tr><td>@Html.ActionLink("Services", "Services", "Home")</td></tr>
+            <tr><td>@Html.ActionLink("Registration", "Registration", "Home")</td></tr>
+            <tr><td>@Html.ActionLink("Login", "Login", "Home")</td></tr>
+            <tr><td>@Html.ActionLink("Feedback Form", "Feedback", "Home")</td></tr>
+        </tbody>
+    </table>
+
+    <!-- SUCCESS MESSAGE -->
+    <div class="success-container">
+        <h2>Registration Successful!</h2>
+        <p>Dear <strong>@Model.FirstName @Model.LastName</strong>, your account has been created successfully.</p>
+        <p>Your User ID: <strong>@Model.UserId</strong></p>
+        <p>User Type: <strong>@Model.UserType</strong></p>
+        <p><a href="@Url.Action("Login", "Home")">Click Here to Login</a></p>
+    </div>
+</div>

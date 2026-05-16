@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/images/hospital-bg.jpg")');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+    }
+
+    .page-title {
+        background-color: #1e4f8a;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    .login-box {
+        width: 420px;
+        margin: auto;
+        border: 2px solid #1e4f8a;
+        background-color: white;
+        border-radius: 6px;
+    }
+
+    .login-header {
+        background-color: #5b8fd1;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+        font-size: 18px;
+    }
+
+    .login-body {
+        padding: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+        .form-row label {
+            width: 100px;
+            font-weight: bold;
+        }
+
+        .form-row input {
+            flex: 1;
+            padding: 6px;
+            border: 1px solid #999;
+            border-radius: 4px;
+        }
+
+    .button-row {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        background-color: #5b8fd1;
+        padding: 15px;
+    }
+
+        .button-row input {
+            width: 80px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    .error-msg {
+        color: red;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .back-home {
+        text-align: center;
+        margin-top: 12px;
+    }
+
+        .back-home a {
+            color: #1e4f8a;
+            font-weight: bold;
+            text-decoration: none;
+        }
+</style>
+
+<div class="page-title">
+    HOSPITAL MANAGEMENT SYSTEM
+</div>
+
+<div class="login-box">
+
+    <div class="login-header">
+        Login Form
+    </div>
+
+    <form method="post" action="/Home/Login" autocomplete="off">
+        <div class="login-body">
+
+            <div class="form-row">
+                <label>Email</label>
+                <input type="email" name="Email"
+                       autocomplete="off" required />
+            </div>
+
+            <div class="form-row">
+                <label>Password</label>
+                <input type="password" name="Password"
+                       autocomplete="new-password" required />
+            </div>
+
+            <div class="form-row">
+                <label>User Type</label>
+                <select name="UserType" style="flex:1; padding:6px; border:1px solid #999; border-radius:4px;">
+                    <option value="">-- Select --</option>
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="error-msg">@ViewBag.Error</div>
+            }
+
+        </div>
+
+        <div class="button-row">
+            <input type="submit" value="Login" />
+            <input type="reset" value="Reset" />
+        </div>
+    </form>
+
+</div>
+
+<div class="back-home">
+    <a href="@Url.Action("Index", "Home")">Back to Home</a>
+</div>

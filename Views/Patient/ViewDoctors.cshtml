@@ -1,0 +1,297 @@
+﻿
+@{
+    ViewData["Title"] = "Our Senior Doctors";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+
+        .card {
+            background-color: #AAC4F5;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+            }
+
+        .card {
+            background-color: #AAC4F5;
+        }
+
+            .card img {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                margin-bottom: 15px;
+            }
+
+        .card-title {
+            font-weight: bold;
+            color: #1A237E;
+        }
+
+        .text-muted {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== FULL WIDTH HEADER (NAVBAR STYLE) ===== -->
+    <div class="container-fluid p-0">
+        <div class="d-flex align-items-center justify-content-between px-4 py-3"
+             style="background-color:#E3F2FD; border-bottom:4px solid #0B3C91;">
+
+            <!-- Left -->
+            <div class="fw-bold" style="color:#0B3C91; font-size:1.1rem;">
+                Welcome to ISB E-HealthCare
+            </div>
+
+            <!-- Center -->
+            <div class="text-center flex-grow-1">
+                <h3 class="fw-bold mb-0" style="color:#0B3C91;">
+                    Our Senior Doctors
+                </h3>
+            </div>
+
+            <!-- Spacer -->
+            <div style="width:200px;"></div>
+        </div>
+    </div>
+
+    <!-- ===== SPACE BETWEEN HEADER & CARDS ===== -->
+    <div class="container mt-5">
+        <div class="row g-4">
+
+            <!-- Doctor 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 text-center shadow-sm border-0 p-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" class="rounded-circle" />
+                    <h5 class="card-title">Dr. Ahmed Khan</h5>
+                    <p class="text-muted mb-1">Cardiologist</p>
+                    <p class="text-muted mb-1">Experience: 18 Years</p>
+                    <p class="card-text text-muted">
+                        MBBS, FCPS (Cardiology). Renowned for advanced heart care.
+                    </p>
+                    <p class="text-muted mb-0">📞 0301-1234567</p>
+                    <p class="text-muted">✉️ ahmed.khan@hospital.com</p>
+                </div>
+            </div>
+
+            <!-- Doctor 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 text-center shadow-sm border-0 p-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140061.png" class="rounded-circle" />
+                    <h5 class="card-title">Dr.Malik</h5>
+                    <p class="text-muted mb-1">Neurologist</p>
+                    <p class="text-muted mb-1">Experience: 15 Years</p>
+                    <p class="card-text text-muted">
+                        MBBS, MD (Neurology). Specialist in brain disorders.
+                    </p>
+                    <p class="text-muted mb-0">📞 0302-9876543</p>
+                    <p class="text-muted">✉️malik@hospital.com</p>
+                </div>
+            </div>
+
+            <!-- Doctor 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 text-center shadow-sm border-0 p-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png" class="rounded-circle" />
+                    <h5 class="card-title">Dr. Umair Ali</h5>
+                    <p class="text-muted mb-1">General Physician</p>
+                    <p class="text-muted mb-1">Experience: 12 Years</p>
+                    <p class="card-text text-muted">
+                        MBBS, MCPS. Expert in primary healthcare.
+                    </p>
+                    <p class="text-muted mb-0">📞 0303-4567890</p>
+                    <p class="text-muted">✉️ usman.ali@hospital.com</p>
+                </div>
+            </div>
+
+            <!-- Doctor 4 -->
+            <div class="col-md-4">
+                <div class="card h-100 text-center shadow-sm border-0 p-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png" class="rounded-circle" />
+                    <h5 class="card-title">Dr. Ayesha Noor</h5>
+                    <p class="text-muted mb-1">Gynecologist</p>
+                    <p class="text-muted mb-1">Experience: 14 Years</p>
+                    <p class="card-text text-muted">
+                        FCPS (Gynecology). Specialized in maternity care.
+                    </p>
+                    <p class="text-muted mb-0">📞 0304-3216549</p>
+                    <p class="text-muted">✉️ ayesha.noor@hospital.com</p>
+                </div>
+            </div>
+
+            <!-- Doctor 5 -->
+            <div class="col-md-4">
+                <div class="card h-100 text-center shadow-sm border-0 p-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140041.png" class="rounded-circle" />
+                    <h5 class="card-title">Dr. Bilal Hussain</h5>
+                    <p class="text-muted mb-1">Orthopedic Surgeon</p>
+                    <p class="text-muted mb-1">Experience: 20 Years</p>
+                    <p class="card-text text-muted">
+                        MS (Orthopedics). Known for joint replacement.
+                    </p>
+                    <p class="text-muted mb-0">📞 0305-6549871</p>
+                    <p class="text-muted">✉️ bilal.hussain@hospital.com</p>
+                </div>
+            </div>
+
+            <!-- Doctor 6 -->
+            <div class="col-md-4">
+                <div class="card h-100 text-center shadow-sm border-0 p-3">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140065.png" class="rounded-circle" />
+                    <h5 class="card-title">Dr. Nadia Farooq</h5>
+                    <p class="text-muted mb-1">Dermatologist</p>
+                    <p class="text-muted mb-1">Experience: 10 Years</p>
+                    <p class="card-text text-muted">
+                        Diploma in Dermatology. Expert in skin care.
+                    </p>
+                    <p class="text-muted mb-0">📞 0306-1122334</p>
+                    <p class="text-muted">✉️ nadia.farooq@hospital.com</p>
+                </div>
+            </div>
+
+        </div>
+    </div>  
+
+
+    <!-- ===== COMPLETE DOCTORS SCHEDULE TABLE ===== -->
+    <div class="container mt-5 mb-5">
+
+        <h4 class="text-center fw-bold mb-4" style="color:#0B3C91;">
+            Doctors Availability, Departments & Timings
+        </h4>
+
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle text-center"
+                   style="background-color:#AAC4F5; color:#0B3C91;">
+
+                <thead style="background-color:#0B3C91; color:white;">
+                    <tr>
+                        <th>Doctor Name</th>
+                        <th>Department</th>
+                        <th>Available Days</th>
+                        <th>Sitting Time</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- CORE MEDICINE -->
+                    <tr>
+                        <td>Dr. Ahmed Khan</td>
+                        <td>Cardiology (Heart Specialist)</td>
+                        <td>Mon – Fri</td>
+                        <td>10:00 AM – 2:00 PM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Dr. Bilal Hussain</td>
+                        <td>Cardiac Surgery (Heart Surgeon)</td>
+                        <td>Mon – Thu</td>
+                        <td>12:00 PM – 4:00 PM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Dr. Usman Ali</td>
+                        <td>General Medicine</td>
+                        <td>Mon – Sat</td>
+                        <td>9:00 AM – 1:00 PM</td>
+                    </tr>
+
+                    <!-- CHILDREN -->
+                    <tr>
+                        <td>Dr. Hina Qureshi</td>
+                        <td>Pediatrics (Child Specialist)</td>
+                        <td>Mon – Sat</td>
+                        <td>9:30 AM – 2:30 PM</td>
+                    </tr>
+
+                    <!-- WOMEN -->
+                    <tr>
+                        <td>Dr. Ayesha Noor</td>
+                        <td>Gynecology & Obstetrics</td>
+                        <td>Mon – Fri</td>
+                        <td>10:30 AM – 3:00 PM</td>
+                    </tr>
+
+                    <!-- SURGERY -->
+                    <tr>
+                        <td>Dr. Kamran Sheikh</td>
+                        <td>General Surgery</td>
+                        <td>Mon – Thu</td>
+                        <td>1:00 PM – 5:00 PM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Dr. Salman Raza</td>
+                        <td>Orthopedic Surgery</td>
+                        <td>Tue – Sat</td>
+                        <td>11:00 AM – 4:00 PM</td>
+                    </tr>
+
+                    <!-- DENTAL -->
+                    <tr>
+                        <td>Dr. Sara Iqbal</td>
+                        <td>Dentistry</td>
+                        <td>Mon – Sat</td>
+                        <td>10:00 AM – 6:00 PM</td>
+                    </tr>
+
+                    <!-- DIGESTIVE SYSTEM -->
+                    <tr>
+                        <td>Dr. Farhan Malik</td>
+                        <td>Gastroenterology (Stomach Specialist)</td>
+                        <td>Mon – Fri</td>
+                        <td>11:00 AM – 3:00 PM</td>
+                    </tr>
+
+                    <tr>
+                        <td>Dr. Imran Siddiqui</td>
+                        <td>Hepatology (Liver Specialist)</td>
+                        <td>Tue – Sat</td>
+                        <td>12:00 PM – 4:00 PM</td>
+                    </tr>
+
+                   
+
+                   
+                   
+
+                   
+
+
+                    
+                </tbody>
+            </table>
+
+            <!-- Back Button -->
+            <div class="text-center mt-3">
+                <a href="@Url.Action("HelloPatient","Patient")"
+                   class="btn btn-primary">
+                    Back to Dashboard
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+

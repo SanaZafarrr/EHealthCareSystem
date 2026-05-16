@@ -1,0 +1,2 @@
+﻿INSERT INTO [dbo].[Admin] (AdminId, FirstName, LastName, Gender, Age, Password, UserType, Email, Address, City, Phone)
+VALUES (1, 'Sana', 'Zafar', 'Female', 22, 'Sana12345', 'Admin', 'sanazafar1076@gmail.com', 'Punjab University Girls Hostel no. 1', 'Lahore', '03350610332');

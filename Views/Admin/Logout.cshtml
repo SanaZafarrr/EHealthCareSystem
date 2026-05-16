@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Logout Confirmation";
+}
+
+<style>
+    body {
+        background-image: url('@Url.Content("~/images/hospital-bg.jpg")');
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        margin: 0;
+    }
+
+    .logout-box {
+        background-color: white;
+        padding: 40px 60px;
+        border-radius: 10px;
+        border: 2px solid #1e4f8a;
+        text-align: center;
+    }
+
+        .logout-box h2 {
+            color: #1e4f8a;
+            margin-bottom: 20px;
+        }
+
+        .logout-box a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+    .yes-btn {
+        background-color: #d9534f;
+        color: white;
+    }
+
+    .no-btn {
+        background-color: #1e4f8a;
+        color: white;
+    }
+</style>
+
+<div class="logout-box">
+    <h2>Are you sure you want to logout?</h2>
+
+    <a class="yes-btn" href="@Url.Action("ConfirmLogout", "Account")">Yes</a>
+    <a class="no-btn" href="@Url.Action("HelloAdmin", "Admin")">No</a>
+</div>

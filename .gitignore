@@ -1,0 +1,16 @@
+# Build output
+bin/
+obj/
+.vs/
+*.user
+
+# ASP.NET Core
+appsettings.Development.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+packages/
