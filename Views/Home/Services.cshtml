@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Services";
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<!-- ================= BACKGROUND STYLE ================= -->
+<style>
+    body {
+        background-image: url('@Url.Content("~/images/hospital-bg.jpg")');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+    }
+
+    .menu-table {
+        background-color: white;
+        border: 2px solid #1e4f8a;
+        border-radius: 6px;
+        width: 250px;
+    }
+
+        .menu-table td a {
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+            color: #1e4f8a;
+        }
+
+            .menu-table td a:hover {
+                background-color: #1e4f8a;
+                color: white;
+                border-radius: 4px;
+            }
+
+    .main-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center; /* vertical alignment of table and content */
+        margin-top: 50px;
+        gap: 50px; /* space between table and content */
+    }
+
+    .services-content {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 8px;
+        width: 600px;
+        text-align: center;
+    }
+
+    .section-title {
+        background-color: #1e4f8a;
+        color: white;
+        display: inline-block;
+        padding: 12px 25px;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .services-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+        margin-bottom: 20px;
+    }
+
+    .services-list p {
+        text-align: left;
+        font-size: 1.1rem;
+        margin: 5px 0;
+    }
+
+    .text-center-block {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .page-title {
+        background-color: #1e4f8a;
+        color: white;
+        display: inline-block;
+        padding: 12px 45px;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 2rem;
+    }
+</style>
+
+<!-- ================= TOP CENTER HEADING ================= -->
+<div class="text-center-block">
+    <h1 class="page-title">HOSPITAL MANAGEMENT SYSTEM</h1>
+</div>
+
+<!-- ================= MAIN CONTENT (TABLE + SERVICES) ================= -->
+<div class="container main-container">
+
+    <!-- ===== LEFT MENU TABLE ===== -->
+    <table class="table menu-table text-center">
+        <tbody>
+            <tr>
+                <td>@Html.ActionLink("Home", "Index", "Home")</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Services", "Services", "Home")</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Registration", "Registration", "Home")</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Login", "Login", "Home")</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Feedback Form", "Feedback", "Home")</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== RIGHT SERVICES CONTENT ===== -->
+    <div class="services-content">
+        <h2 class="section-title">Services</h2>
+        <img src="@Url.Content("~/images/doctors.jpg")" alt="Doctors">
+
+        <div class="services-list">
+            <p>1. 24/7 Faculty of Doctors</p>
+            <p>2. Dedicated Towered Patient Health Services</p>
+            <p>3. Advanced Diagnostic and Laboratory Services</p>
+            <p>4. Specialized Surgery Departments</p>
+            <p>5. Emergency and Trauma Care</p>
+            <p>6. Pharmacy and Medication Management</p>
+            <p>7. Health Awareness and Counseling Programs</p>
+        </div>
+    </div>
+
+</div>

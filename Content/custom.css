@@ -1,0 +1,30 @@
+﻿body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* HERO SECTION */
+.hero {
+    background: linear-gradient(rgba(13,110,253,0.7), rgba(13,110,253,0.7)), url('/images/hero-bg.jpg') center/cover no-repeat;
+    color: white;
+    padding: 120px 40px;
+    text-align: center;
+}
+
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    .hero p {
+        font-size: 1.3rem;
+        margin-top: 20px;
+    }
+
+.feature-card {
+    border-radius: 15px;
+    transition: transform 0.3s;
+}
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }

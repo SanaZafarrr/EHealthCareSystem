@@ -1,0 +1,766 @@
+﻿@model List<HealthCareSystem.Models.User>
+@using HealthCareSystem.Models
+@inject HealthCareSystem.Data.AppDbContext _context
+@{
+    ViewData["Title"] = "View Patients";
+    var adminId = Context.Session.GetInt32("UserId");
+    var admin = _context.Admins.FirstOrDefault(a => a.SystemId == adminId);
+    string adminName = admin != null ? admin.FirstName + " " + admin.LastName : "Admin";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --teal: #00a896;
+        --teal2: #007f72;
+        --teal-light: #e6f7f5;
+        --sidebar-w: 240px;
+        --text-dark: #0d2137;
+        --text-mid: #3a5068;
+        --text-soft: #6b8fa8;
+        --bg: #f0f7f9;
+        --card-bg: #ffffff;
+        --border: #d0e8e4;
+        --sidebar-bg: #0a1e2e;
+        --sidebar-bg2: #0d3d35;
+    }
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background: var(--bg);
+        min-height: 100vh;
+        color: var(--text-dark);
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: var(--sidebar-w);
+        height: 100vh;
+        background: linear-gradient(180deg, var(--sidebar-bg) 0%, var(--sidebar-bg2) 100%);
+        display: flex;
+        flex-direction: column;
+        z-index: 100;
+        padding: 0 0 20px 0;
+        overflow: hidden;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+    }
+
+    .sidebar-logo {
+        padding: 28px 20px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        text-align: center;
+    }
+
+        .sidebar-logo .logo-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--teal), var(--teal2));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(0,168,150,0.4);
+        }
+
+        .sidebar-logo h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            color: #f0f6ff;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
+        .sidebar-logo small {
+            color: var(--teal);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+    .nav-section {
+        padding: 16px 12px 6px;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.3);
+        font-weight: 600;
+    }
+
+    .sidebar nav {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 12px;
+    }
+
+        .sidebar nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.65);
+            padding: 11px 14px;
+            margin: 3px 0;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+            .sidebar nav a i {
+                font-size: 17px;
+                width: 22px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            .sidebar nav a:hover, .sidebar nav a.active {
+                background: rgba(0,168,150,0.2);
+                color: #5eebd8;
+                border-left: 3px solid var(--teal);
+                padding-left: 11px;
+            }
+
+    .sidebar-footer {
+        padding: 12px;
+    }
+
+    .sidebar nav a.logout-link {
+        color: rgba(255,120,120,0.75);
+    }
+
+        .sidebar nav a.logout-link:hover {
+            background: rgba(255,80,80,0.12);
+            color: #ff8080;
+            border-left: 3px solid #ff8080;
+        }
+
+    /* ── TOPBAR ── */
+    .topbar {
+        position: fixed;
+        top: 0;
+        left: var(--sidebar-w);
+        right: 0;
+        height: 64px;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        z-index: 99;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .topbar-left h6 {
+        font-size: 13px;
+        color: var(--text-soft);
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .topbar-left h5 {
+        font-family: 'Playfair Display', serif;
+        font-size: 18px;
+        color: var(--text-dark);
+        margin: 0;
+    }
+
+    .topbar-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--teal-light);
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        padding: 5px 14px 5px 5px;
+        text-decoration: none;
+        transition: all 0.25s;
+    }
+
+        .topbar-profile:hover {
+            background: #c8ede8;
+            border-color: var(--teal);
+        }
+
+        .topbar-profile img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--teal);
+        }
+
+        .topbar-profile span {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+    /* ── MAIN ── */
+    .main {
+        margin-left: var(--sidebar-w);
+        padding-top: 64px;
+        min-height: 100vh;
+    }
+
+    .content-wrap {
+        padding: 40px 36px;
+    }
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .page-header-left h4 {
+        font-family: 'Playfair Display', serif;
+        font-size: 24px;
+        color: var(--text-dark);
+        margin: 0;
+    }
+
+    .page-header-left p {
+        color: var(--text-soft);
+        font-size: 13px;
+        margin: 4px 0 0;
+    }
+
+    /* ── TOAST ── */
+    .toast-msg {
+        background: #e6f7f5;
+        border: 1px solid #9eddd6;
+        border-radius: 10px;
+        padding: 12px 18px;
+        font-size: 13px;
+        color: var(--teal2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 22px;
+    }
+
+    .toast-error {
+        background: #fff0f0;
+        border-color: #ffb3b3;
+        color: #cc3333;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+    }
+
+    .stat-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px 24px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+        min-width: 160px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .stat-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--teal-light);
+        border: 1px solid #b2ddd8;
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .stat-info p {
+        font-size: 11px;
+        color: var(--text-soft);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .stat-info h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 26px;
+        color: var(--text-dark);
+        margin: 2px 0 0;
+        line-height: 1;
+    }
+
+    /* ── TABLE CARD ── */
+    .table-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+
+    .table-card-header {
+        padding: 20px 28px;
+        border-bottom: 1px solid var(--border);
+        background: #f8fbfc;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+        .table-card-header h6 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+    .search-box {
+        position: relative;
+    }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-soft);
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .search-box input {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 14px 8px 36px;
+            font-size: 13px;
+            color: var(--text-dark);
+            font-family: 'DM Sans', sans-serif;
+            width: 220px;
+            transition: all 0.2s;
+        }
+
+            .search-box input:focus {
+                outline: none;
+                border-color: var(--teal);
+                background: var(--teal-light);
+                box-shadow: 0 0 0 3px rgba(0,168,150,0.1);
+            }
+
+            .search-box input::placeholder {
+                color: #a0b8c8;
+            }
+
+    /* ── TABLE ── */
+    .patients-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .patients-table thead tr {
+            background: #f0f7f9;
+        }
+
+        .patients-table th {
+            padding: 13px 20px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--teal2);
+            font-weight: 700;
+            text-align: left;
+            white-space: nowrap;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .patients-table td {
+            padding: 14px 20px;
+            font-size: 13.5px;
+            color: var(--text-mid);
+            border-top: 1px solid #edf4f6;
+            vertical-align: middle;
+        }
+
+        .patients-table tbody tr {
+            transition: background 0.2s;
+        }
+
+            .patients-table tbody tr:hover {
+                background: #f5fbfa;
+            }
+
+    .patient-name-cell {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .patient-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: var(--teal-light);
+        border: 1px solid #b2ddd8;
+        display: grid;
+        place-items: center;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+
+    .patient-name-info strong {
+        display: block;
+        font-size: 14px;
+        color: var(--text-dark);
+        font-weight: 600;
+    }
+
+    .patient-name-info span {
+        font-size: 11px;
+        color: var(--text-soft);
+    }
+
+    .gender-badge {
+        display: inline-block;
+        border-radius: 6px;
+        padding: 3px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .gender-male {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: #2563eb;
+    }
+
+    .gender-female {
+        background: #fdf2f8;
+        border: 1px solid #f9a8d4;
+        color: #be185d;
+    }
+
+    .gender-other {
+        background: #f0f4f8;
+        border: 1px solid var(--border);
+        color: var(--text-soft);
+    }
+
+    .city-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #f0f4f8;
+        border: 1px solid var(--border);
+        color: var(--text-mid);
+        border-radius: 6px;
+        padding: 3px 10px;
+        font-size: 11px;
+    }
+
+    .action-btns {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-edit {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: var(--teal-light);
+        border: 1px solid #9eddd6;
+        color: var(--teal2);
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+        font-family: 'DM Sans', sans-serif;
+        cursor: pointer;
+    }
+
+        .btn-edit:hover {
+            background: #c8ede8;
+            color: var(--teal2);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,168,150,0.15);
+        }
+
+    .btn-delete {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #fff0f0;
+        border: 1px solid #ffb3b3;
+        color: #cc3333;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+        font-family: 'DM Sans', sans-serif;
+        cursor: pointer;
+    }
+
+        .btn-delete:hover {
+            background: #ffe0e0;
+            color: #cc3333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(204,51,51,0.12);
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        .empty-state h6 {
+            font-size: 16px;
+            color: var(--text-soft);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 13px;
+            color: #a0b8c8;
+        }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(0,168,150,0.3);
+        border-radius: 10px;
+    }
+</style>
+
+<!-- ══ SIDEBAR ══ -->
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <div class="logo-icon">🏥</div>
+        <h4>ISB Hospital</h4>
+        <small>Management System</small>
+    </div>
+
+    <div class="nav-section">Main Menu</div>
+    <nav>
+        <a asp-controller="Admin" asp-action="HelloAdmin"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a asp-controller="Admin" asp-action="AdminProfile"><i class="bi bi-person-circle"></i> My Profile</a>
+
+        <div class="nav-section" style="padding-left:0">Hospital</div>
+        <a asp-controller="Admin" asp-action="HospitalInfo"><i class="bi bi-building"></i> Hospital Info</a>
+
+        <div class="nav-section" style="padding-left:0">Doctors</div>
+        <a asp-controller="Admin" asp-action="NewDoctor"><i class="bi bi-person-plus"></i> Add Doctor</a>
+        <a asp-controller="Admin" asp-action="ViewDoctor"><i class="bi bi-person-badge"></i> View Doctors</a>
+
+        <div class="nav-section" style="padding-left:0">Patients</div>
+        <a asp-controller="Admin" asp-action="ViewPatient" class="active"><i class="bi bi-people"></i> View Patients</a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <nav>
+            <a asp-controller="Admin" asp-action="Logout" class="logout-link">
+                <i class="bi bi-box-arrow-left"></i> Logout
+            </a>
+        </nav>
+    </div>
+</div>
+
+<!-- ══ TOPBAR ══ -->
+<div class="topbar">
+    <div class="topbar-left">
+        <h6>Patient Management</h6>
+        <h5>All Patients</h5>
+    </div>
+    <div class="topbar-right">
+        <a asp-controller="Admin" asp-action="AdminProfile" class="topbar-profile">
+            <img src="@Url.Content("~/images/admin-profile.png")" alt="Admin" />
+            <span>@adminName</span>
+        </a>
+    </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+    <div class="content-wrap">
+
+        <div class="page-header">
+            <div class="page-header-left">
+                <h4>Registered Patients</h4>
+                <p>Manage all patients in the system</p>
+            </div>
+        </div>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="toast-msg">
+                <i class="bi bi-check-circle-fill"></i> @TempData["Message"]
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="toast-msg toast-error">
+                <i class="bi bi-exclamation-circle-fill"></i> @TempData["Error"]
+            </div>
+        }
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon">🧑‍🤝‍🧑</div>
+                <div class="stat-info"><p>Total Patients</p><h3>@Model.Count</h3></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👨</div>
+                <div class="stat-info"><p>Male</p><h3>@Model.Count(p => p.Gender != null && p.Gender.ToLower() == "male")</h3></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👩</div>
+                <div class="stat-info"><p>Female</p><h3>@Model.Count(p => p.Gender != null && p.Gender.ToLower() == "female")</h3></div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏙️</div>
+                <div class="stat-info"><p>Cities</p><h3>@Model.Where(p => p.City != null).Select(p => p.City).Distinct().Count()</h3></div>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <div class="table-card-header">
+                <h6>Patient Directory</h6>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search patients..." oninput="filterTable()" />
+                </div>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">🧑‍🤝‍🧑</div>
+                    <h6>No Patients Found</h6>
+                    <p>There are no patients registered in the system yet.</p>
+                </div>
+            }
+            else
+            {
+                <div style="overflow-x:auto;">
+                    <table class="patients-table" id="patientsTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Patient</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Gender</th>
+                                <th>Age</th>
+                                <th>City</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Count; i++)
+                            {
+                                var patient = Model[i];
+                                var genderClass = patient.Gender?.ToLower() == "male" ? "gender-male"
+                                : patient.Gender?.ToLower() == "female" ? "gender-female"
+                                : "gender-other";
+                                <tr>
+                                    <td style="color:#a0b8c8;font-size:12px;">@(i + 1)</td>
+                                    <td>
+                                        <div class="patient-name-cell">
+                                            <div class="patient-avatar">
+                                                @(patient.Gender?.ToLower() == "female" ? "👩" : "👨")
+                                            </div>
+                                            <div class="patient-name-info">
+                                                <strong>@patient.FirstName @patient.LastName</strong>
+                                                <span>ID: @patient.UserId</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>@patient.Email</td>
+                                    <td>@(patient.Phone ?? "—")</td>
+                                    <td><span class="gender-badge @genderClass">@(patient.Gender ?? "—")</span></td>
+                                    <td>@(patient.Age > 0 ? patient.Age.ToString() : "—")</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(patient.City))
+                                        {
+                                            <span class="city-badge"><i class="bi bi-geo-alt"></i> @patient.City</span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:#a0b8c8;">—</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <a asp-controller="Admin" asp-action="EditPatient"
+                                               asp-route-id="@patient.UserId" class="btn-edit">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <a asp-controller="Admin" asp-action="DeletePatient"
+                                               asp-route-id="@patient.UserId" class="btn-delete"
+                                               onclick="return confirm('Delete @patient.FirstName @patient.LastName? This cannot be undone.')">
+                                                <i class="bi bi-trash"></i> Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function filterTable() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('#patientsTable tbody tr');
+        rows.forEach(row => {
+            row.style.display = row.textContent.toLowerCase().includes(input) ? '' : 'none';
+        });
+    }
+</script>

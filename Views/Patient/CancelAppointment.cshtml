@@ -1,0 +1,159 @@
+﻿ model List<HealthCareSystem.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Cancel Appointment";
+    var patientName = ViewBag.PatientName as string;
+    var email = ViewBag.Email as string;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cancel Appointment</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #F4F9FF;
+        }
+
+        .form-container {
+            max-width: 900px;
+            margin: auto;
+            margin-top: 60px;
+            background-color: #E3F2FD;
+            padding: 30px;
+            border-radius: 10px;
+            border-top: 6px solid #0D47A1;
+        }
+
+        .title {
+            color: #1A237E;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container shadow">
+
+        <div class="text-center mb-4">
+            <h2 class="title">Cancel Appointment</h2>
+            <p class="text-muted">Search and cancel your appointments</p>
+        </div>
+
+            <div class="text-end mb-3">
+                <a asp-action="HelloPatient" asp-controller="Patient" class="btn btn-primary">
+                    Back to Dashboard
+                </a>
+            </div>
+
+        <!-- ❌ REMOVED TOP LOGOUT BUTTON -->
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success text-center">@TempData["Success"]</div>
+        }
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger text-center">@ViewBag.Message</div>
+        }
+
+        <!-- SEARCH FORM -->
+        <form asp-action="CancelAppointment" method="post">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Patient Name</label>
+                    <input type="text" name="patientName" class="form-control" required value="@patientName" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Email Address</label>
+                    <input type="email" name="email" class="form-control" required value="@email" />
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-danger px-4">
+                    Search Appointment
+                </button>
+            </div>
+        </form>
+
+        <!-- RESULTS TABLE -->
+        @if (Model != null && Model.Count > 0)
+        {
+            <table class="table table-bordered mt-4">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.DoctorName</td>
+                            <td>@item.AppointmentDate.ToShortDateString()</td>
+                            <td>@item.AppointmentDate.DayOfWeek</td>
+
+                            <td>
+                                <span class="badge
+                                @(item.Status == "Cancelled" ? "bg-danger" :
+                                  item.Status == "Pending" ? "bg-warning text-dark" : "bg-success")">
+                                    @item.Status
+                                </span>
+                            </td>
+
+                            <td>
+                                @if (item.Status != "Cancelled")
+                                {
+                                    <form asp-action="ConfirmCancel" method="post">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="hidden" name="patientName" value="@patientName" />
+                                        <input type="hidden" name="email" value="@email" />
+
+                                        <button type="submit"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Are you sure you want to cancel this appointment?');">
+                                            Cancel
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Already Cancelled</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <!-- ✅ KEEP ONLY THIS WORKING LOGOUT -->
+        <div class="d-flex justify-content-end mb-3">
+            <a href="/Account/Logout"
+               class="btn btn-danger btn-sm"
+               onclick="return confirm('Are you sure you want to logout?');">
+                Logout
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html> 
+
+
+
+
+   

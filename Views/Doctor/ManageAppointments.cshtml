@@ -1,0 +1,257 @@
+﻿@model List<HealthCareSystem.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Manage Appointments";
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Manage Appointments</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+    <style>
+
+        body {
+            background-color: #F4F9FF;
+        }
+
+        .main-box {
+            max-width: 1100px;
+            margin: auto;
+            margin-top: 40px;
+            background-color: #E3F2FD;
+            padding: 30px;
+            border-radius: 12px;
+            border-top: 6px solid #0D47A1;
+        }
+
+        .title {
+            color: #1A237E;
+            font-weight: bold;
+        }
+
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark"
+         style="background-color:#4aa3df;">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand fw-bold">
+                ISB E-HealthCare
+            </a>
+
+            <ul class="navbar-nav me-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="@Url.Action("HelloDoctor","Doctor")">
+
+                        Dashboard
+
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="@Url.Action("ManageAppointments","Doctor")">
+
+                        Manage Appointments
+
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="@Url.Action("AddPrescription","Doctor")">
+
+                        Add Prescription
+
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="@Url.Action("PatientRecords","Doctor")">
+
+                        Patient Records
+
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white"
+                       href="@Url.Action("DoctorProfile","Doctor")">
+
+                        Doctor Profile
+
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+    <!-- MAIN BOX -->
+
+    <div class="main-box shadow">
+
+        <div class="text-center mb-4">
+
+            <h2 class="title">
+                Manage Appointments
+            </h2>
+
+            <p class="text-muted">
+
+                Confirm or delete patient appointments
+
+            </p>
+
+        </div>
+
+        <!-- SUCCESS MESSAGE -->
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success text-center">
+
+                @TempData["Success"]
+
+            </div>
+        }
+
+        <!-- DELETE MESSAGE -->
+        @if (TempData["Delete"] != null)
+        {
+            <div class="alert alert-danger text-center">
+
+                @TempData["Delete"]
+
+            </div>
+        }
+
+        <!-- TABLE -->
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Patient Name</th>
+                    <th>Doctor Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.PatientName</td>
+
+                        <td>@item.DoctorName</td>
+
+                        <td>
+                            @item.AppointmentDate.ToShortDateString()
+                        </td>
+
+                        <td>
+
+                            <span class="badge
+                            @(item.Status == "Pending"
+                            ? "bg-warning text-dark"
+                            : item.Status == "Confirmed"
+                            ? "bg-success"
+                            : "bg-danger")">
+
+                                @item.Status
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <!-- CONFIRM -->
+                            @if (item.Status == "Pending")
+                            {
+                                <form asp-action="ConfirmAppointment"
+                                      method="post"
+                                      style="display:inline;">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@item.Id" />
+
+                                    <button type="submit"
+                                            class="btn btn-success btn-sm">
+
+                                        Confirm
+
+                                    </button>
+
+                                </form>
+                            }
+
+                            <!-- DELETE -->
+
+                            <form asp-action="DeleteAppointment"
+                                  method="post"
+                                  style="display:inline;">
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@item.Id" />
+
+                                <button type="submit"
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Delete appointment?');">
+
+                                    Delete
+
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

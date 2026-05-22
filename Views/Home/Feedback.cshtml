@@ -1,0 +1,187 @@
+﻿@{
+    ViewData["Title"] = "Feedback";
+}
+
+<!-- ================= PAGE STYLES ================= -->
+<style>
+    body {
+        background-image: url('@Url.Content("~/images/hospital-bg.jpg")');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .menu-table {
+        width: 180px; /* smaller than feedback form */
+        background-color: white;
+        border: 2px solid #1e4f8a;
+        border-radius: 6px;
+        font-family: Arial, sans-serif;
+        /* KEY FIX */
+        height: auto;
+        align-self: flex-start;
+    }
+
+        .menu-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #1e4f8a;
+        }
+
+        .menu-table a {
+            display: block;
+            font-weight: bold;
+            color: #1e4f8a;
+            text-decoration: none;
+        }
+
+            .menu-table a:hover {
+                background-color: #1e4f8a;
+                color: white;
+            }
+
+
+
+    .page-title {
+        background-color: #1e4f8a;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 50px;
+    }
+
+    /* ===== LEFT MENU ===== */
+    .menu-box {
+        border: 2px solid #1e4f8a;
+        background-color: white;
+        width: 220px;
+        padding: 10px;
+    }
+
+        .menu-box a {
+            display: block;
+            border: 1px solid #1e4f8a;
+            margin-bottom: 8px;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #1e4f8a;
+            text-decoration: none;
+        }
+
+            .menu-box a:hover {
+                background-color: #1e4f8a;
+                color: white;
+            }
+
+    /* ===== FEEDBACK FORM ===== */
+    .feedback-box {
+        background-color: white;
+        border: 2px solid #1e4f8a;
+        padding: 25px;
+        width: 400px;
+    }
+
+    .feedback-title {
+        font-weight: bold;
+        color: #1e4f8a;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .form-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+        .form-row label {
+            width: 90px;
+            font-weight: bold;
+        }
+
+        .form-row input,
+        .form-row textarea {
+            flex: 1;
+            padding: 6px;
+            border: 1px solid #999;
+            border-radius: 4px;
+        }
+
+    textarea {
+        resize: none;
+        height: 80px;
+    }
+
+    .btn-post {
+        margin-left: 90px;
+        padding: 5px 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+
+<!-- ================= PAGE HEADING ================= -->
+<div class="page-title">
+    HOSPITAL MANAGEMENT SYSTEM
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="container main-container">
+
+    <!-- ===== LEFT NAVIGATION ===== -->
+    <!---<div class="menu-box">-->
+        <table class="table menu-table text-center">
+            <tbody>
+                <tr>
+                    <td>@Html.ActionLink("Home", "Index", "Home")</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Services", "Services", "Home")</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Registration", "Registration", "Home")</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Login", "Login", "Home")</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Feedback Form", "Feedback", "Home")</td>
+                </tr>
+            </tbody>
+        </table>
+    <!--</div>-->
+
+    <!-- ===== FEEDBACK FORM ===== -->
+    <div class="feedback-box">
+        <div class="feedback-title">Post Your Comments here</div>
+
+        <form method="post">
+            <div class="form-row">
+                <label>User Name</label>
+                <input type="text" required />
+            </div>
+
+            <div class="form-row">
+                <label>Email ID</label>
+                <input type="email" required />
+            </div>
+
+            <div class="form-row">
+                <label>Feed back</label>
+                <textarea required></textarea>
+            </div>
+
+            <input type="submit" value="Post Comment" class="btn-post" />
+        </form>
+    </div>
+
+</div>

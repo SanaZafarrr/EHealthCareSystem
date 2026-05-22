@@ -1,0 +1,387 @@
+﻿@{
+    ViewData["Title"] = "Doctor Dashboard";
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Doctor Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+
+    <style>
+
+        body {
+            background-color: #F4F9FF;
+        }
+
+        .navbar-custom {
+            background-color: #4aa3df;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #b3d9ff, #80c1ff);
+            border-radius: 15px;
+        }
+
+        .dashboard-card {
+            transition: 0.3s;
+            border-radius: 12px;
+        }
+
+            .dashboard-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .footer-section {
+            background: linear-gradient(90deg, #4aa3df, #2f86c5);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand fw-bold" href="#">
+                ISB E-HealthCare (Doctor Panel)
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar-nav me-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white"
+                           href="@Url.Action("HelloDoctor","Doctor")">
+
+                            Dashboard
+
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white"
+                           href="@Url.Action("ManageAppointments","Doctor")">
+
+                            Manage Appointments
+
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white"
+                           href="@Url.Action("AddPrescription","Doctor")">
+
+                            Add Prescription
+
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white"
+                           href="@Url.Action("PatientRecords","Doctor")">
+
+                            Patient Records
+
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white"
+                           href="@Url.Action("DoctorProfile","Doctor")">
+
+                            Doctor Profile
+
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white"
+                           href="@Url.Action("Logout","Home")">
+
+                            Logout
+
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- ================= WELCOME SECTION ================= -->
+
+    <div class="container mt-4">
+
+        <div class="row align-items-center p-4 welcome-section shadow">
+
+            <!-- LEFT -->
+
+            <div class="col-md-5">
+
+                <h2 class="fw-bold text-dark">
+
+                    Welcome 
+                    @Context.Session.GetString("DoctorName")
+
+                </h2>
+
+                <p class="text-dark fs-5">
+
+                    Manage appointments, prescriptions and patient
+                    healthcare records efficiently.
+
+                </p>
+
+                <a href="@Url.Action("ManageAppointments","Doctor")"
+                   class="btn btn-primary btn-lg">
+
+                    Manage Appointments
+
+                </a>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-7">
+
+                <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg"
+                     class="img-fluid rounded shadow"
+                     style="height:260px; width:100%; object-fit:cover;" />
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= DASHBOARD CARDS ================= -->
+
+    <div class="container mt-5">
+
+        <div class="row g-4">
+
+            <!-- APPOINTMENTS -->
+
+            <div class="col-md-3">
+
+                <div class="card dashboard-card shadow border-0 text-center">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold">
+                            Appointments
+                        </h4>
+
+                        <p class="text-muted">
+
+                            Confirm and manage appointments.
+
+                        </p>
+
+                        <a href="@Url.Action("ManageAppointments","Doctor")"
+                           class="btn btn-primary">
+
+                            Open
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PRESCRIPTION -->
+
+            <div class="col-md-3">
+
+                <div class="card dashboard-card shadow border-0 text-center">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold">
+                            Prescription
+                        </h4>
+
+                        <p class="text-muted">
+
+                            Add diagnosis and medicines.
+
+                        </p>
+
+                        <a href="@Url.Action("AddPrescription","Doctor")"
+                           class="btn btn-success">
+
+                            Open
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RECORDS -->
+
+            <div class="col-md-3">
+
+                <div class="card dashboard-card shadow border-0 text-center">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold">
+                            Patient Records
+                        </h4>
+
+                        <p class="text-muted">
+
+                            View previous medical records.
+
+                        </p>
+
+                        <a href="@Url.Action("PatientRecords","Doctor")"
+                           class="btn btn-info text-white">
+
+                            Open
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PROFILE -->
+
+            <div class="col-md-3">
+
+                <div class="card dashboard-card shadow border-0 text-center">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold">
+                            Doctor Profile
+                        </h4>
+
+                        <p class="text-muted">
+
+                            View doctor details and availability.
+
+                        </p>
+
+                        <a href="@Url.Action("DoctorProfile","Doctor")"
+                           class="btn btn-warning text-dark">
+
+                            Open
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= FOOTER ================= -->
+
+            <div class="container-fluid mt-5 px-0">
+
+                <div class="row text-white py-5 footer-section">
+
+                    <!-- LEFT -->
+
+                    <div class="col-md-4 px-5">
+
+                        <h5 class="fw-bold">
+                            Doctor Portal
+                        </h5>
+
+                        <p style="font-size:14px;">
+
+                            Smart doctor dashboard for managing
+                            appointments, prescriptions and
+                            patient healthcare records.
+
+                        </p>
+
+                    </div>
+
+                    <!-- CENTER -->
+
+                    <div class="col-md-4 px-5">
+
+                        <h5 class="fw-bold">
+                            Quick Actions
+                        </h5>
+
+                        <ul class="list-unstyled" style="font-size:14px;">
+
+                            <li>➤ Manage Appointments</li>
+                            <li>➤ Confirm Patients</li>
+                            <li>➤ Add Prescriptions</li>
+                            <li>➤ View Patient Records</li>
+
+                        </ul>
+
+                    </div>
+
+                    <!-- RIGHT -->
+
+                    <div class="col-md-4 px-5">
+
+                        <h5 class="fw-bold">
+                            Contact
+                        </h5>
+
+                        <p style="font-size:14px;">
+
+                            📍 ISB E-Healthcare System <br />
+                            📞 +92 300 1234567 <br />
+                            ✉️ doctor@isbhealth.com
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+﻿@{
+    ViewData["Title"] = "Registration";
+}
+
+<style>
+    body {
+        background-image: url('/images/hospital-bg.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+    }
+
+    .title-box {
+        text-align: center;
+        margin: 30px 0;
+    }
+
+        .title-box h1 {
+            background-color: #1e4f8a;
+            color: white;
+            padding: 12px 40px;
+            display: inline-block;
+            border-radius: 6px;
+        }
+
+    .main-container {
+        display: flex;
+        align-items: flex-start; /* prevents stretching */
+        gap: 30px;
+    }
+
+
+
+    .menu-table {
+        width: 180px; /* MUCH smaller than form */
+        background-color: white;
+        border: 2px solid #1e4f8a;
+        border-radius: 6px;
+        font-size: 14px;
+        /* KEY FIXES */
+        height: auto;
+        align-self: flex-start; /* stops matching form height */
+    }
+
+
+        .menu-table td {
+            padding: 8px 10px; /* compact spacing */
+            border-bottom: 1px solid #1e4f8a;
+        }
+
+        .menu-table a {
+            display: block;
+            text-decoration: none;
+            font-weight: bold;
+            color: #1e4f8a;
+        }
+
+            .menu-table a:hover {
+                background-color: #1e4f8a;
+                color: white;
+            }
+
+
+
+
+    /* REGISTRATION FORM */
+    .form-container {
+        width: 600px;
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 25px;
+        border-radius: 8px;
+    }
+
+        .form-container h2 {
+            text-align: center;
+            background-color: #1e4f8a;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+
+    .btn-register {
+        background-color: #1e4f8a;
+        color: white;
+        font-weight: bold;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+
+        .btn-register:hover {
+            background-color: #163f6d;
+        }
+
+    .login-link {
+        text-align: center;
+        margin-top: 15px;
+    }
+</style>
+
+<div class="title-box">
+    <h1>HOSPITAL MANAGEMENT SYSTEM</h1>
+</div>
+
+<div class="main-container">
+
+    <!-- NAVIGATION MENU -->
+    <table class="menu-table">
+        <tr><td><a href="/Home/Index">Home</a></td></tr>
+        <tr><td><a href="/Home/Services">Services</a></td></tr>
+        <tr><td><a href="/Home/Registration">Registration</a></td></tr>
+        <tr><td><a href="/Home/Login">Login</a></td></tr>
+        <tr><td><a href="/Home/Feedback">Feedback</a></td></tr>
+    </table>
+
+    <!-- REGISTRATION FORM -->
+    <div class="form-container">
+        <h2>Registration</h2>
+
+        <form method="post" action="/Home/Registration">
+
+            <label>First Name</label>
+            <input type="text" name="FirstName" placeholder="Enter first name" required />
+
+            <label>Last Name</label>
+            <input type="text" name="LastName" placeholder="Enter last name" required />
+
+            <label>Gender</label>
+            <select name="Gender" required>
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label>Age</label>
+            <input type="number" name="Age" placeholder="Enter age" required />
+
+            <label>Phone Number</label>
+            <input type="text" name="Phone" placeholder="Enter phone number" required />
+
+
+            <label>User Type</label>
+            <select name="UserType" required>
+                <option value="">Select</option>
+                <option value="admin">Admin</option>
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+            </select>
+
+            <label>Email</label>
+            <input type="email" name="Email" placeholder="Enter email" required />
+
+            <label>Password</label>
+            <input type="password" name="Password" placeholder="Enter password" required />
+
+            <label>Address</label>
+            <textarea name="Address" placeholder="Enter address"></textarea>
+
+            <label>City</label>
+            <input type="text" name="City" placeholder="Enter city" />
+
+            <button type="submit" class="btn-register">Register</button>
+
+        </form>
+
+
+        <div class="login-link">
+            Already have an account?
+            <a href="/Home/Login"><b>Go to Login</b></a>
+        </div>
+    </div>
+</div>

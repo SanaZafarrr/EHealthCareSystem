@@ -1,0 +1,279 @@
+﻿@* @{
+    ViewData["Title"] = "Create Prescription";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body {
+        background: #eef6ff;
+    }
+
+    .form-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+        padding: 30px;
+        margin-top: 40px;
+        animation: slideUp 0.7s ease;
+    }
+
+    @@keyframes slideUp {
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .title {
+        background: linear-gradient(135deg, #4aa3df, #2f86c5);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 10px rgba(74,163,223,0.4);
+        border-color: #4aa3df;
+    }
+
+    .btn-save {
+        background: #4aa3df;
+        border: none;
+        transition: 0.3s;
+    }
+
+        .btn-save:hover {
+            background: #2f86c5;
+            transform: scale(1.05);
+        }
+</style>
+
+<div class="container">
+
+    <div class="form-card">
+
+        <div class="title">
+            <h3>🧾 Create Prescription</h3>
+        </div>
+
+        <form method="post">
+
+            <input type="hidden" name="AppointmentId" value="@ViewBag.AppointmentId" />
+
+            <div class="mb-3">
+                <label class="form-label">Patient Name</label>
+                <input type="text" class="form-control"
+                       value="@ViewBag.PatientName" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Doctor Name</label>
+                <input type="text" class="form-control"
+                       value="@ViewBag.DoctorName" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Diagnosis</label>
+                <input type="text" name="Diagnosis" class="form-control"
+                       placeholder="Enter diagnosis..." required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Medicines</label>
+                <input type="text" name="Medicines" class="form-control"
+                       placeholder="Enter medicines..." required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Notes</label>
+                <textarea name="Notes" class="form-control" rows="4"
+                          placeholder="Additional notes..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-save text-white w-100">
+                💾 Save Prescription
+            </button>
+
+        </form>
+
+    </div>
+
+</div>    *@
+
+
+@model HealthCareSystem.Models.Prescription
+
+@{
+    ViewData["Title"] = "Create Prescription";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+
+<style>
+
+    body {
+        background-color: #f4f9ff;
+    }
+
+    .form-card {
+        max-width: 700px;
+        margin: auto;
+        margin-top: 40px;
+        border-radius: 15px;
+        overflow: hidden;
+        animation: slideForm 0.6s ease;
+    }
+
+    @@keyframes slideForm {
+
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #4aa3df, #2f86c5);
+    }
+
+    .btn-save {
+        transition: 0.3s;
+    }
+
+        .btn-save:hover {
+            transform: scale(1.03);
+        }
+
+</style>
+
+<div class="container">
+    <div class="mb-3 text-center">
+
+        <a href="@Url.Action("AddPrescription","Doctor")"
+           class="btn btn-secondary">
+
+            ← Back to Prescription Management
+
+        </a>
+
+    </div>
+
+    <div class="card shadow border-0 form-card">
+
+        <div class="card-header text-white">
+
+            <h3 class="fw-bold">
+
+                💊 @(Model.PrescriptionId == 0
+                 ? "Add Prescription"
+                 : "Edit Prescription")
+
+            </h3>
+
+        </div>
+
+        <div class="card-body p-4">
+
+            <form method="post">
+
+                <input type="hidden" asp-for="PrescriptionId" />
+
+                <input type="hidden" asp-for="AppointmentId" />
+
+                <input type="hidden" asp-for="UserId" />
+
+                <input type="hidden" asp-for="DoctorId" />
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Patient Name
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           asp-for="PatientName"
+                           readonly />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Doctor Name
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           asp-for="DoctorName"
+                           readonly />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Diagnosis
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           asp-for="Diagnosis"
+                           placeholder="Enter diagnosis..." />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Medicines
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           asp-for="Medicines"
+                           placeholder="Enter medicines..." />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-bold">
+                        Notes
+                    </label>
+
+                    <textarea class="form-control"
+                              rows="4"
+                              asp-for="Notes"
+                              placeholder="Additional notes..."></textarea>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary w-100 btn-save">
+
+                    💾 Save Prescription
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
