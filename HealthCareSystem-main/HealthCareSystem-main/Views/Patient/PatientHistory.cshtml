@@ -1,0 +1,99 @@
+﻿@model List<HealthCareSystem.Models.PatientHistoryViewModel>
+
+@{
+    ViewData["Title"] = "My Medical History";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4">My Medical History</h2>
+
+    <div class="text-end mb-3">
+        <a asp-action="HelloPatient" asp-controller="Patient" class="btn btn-primary">
+            Back to Dashboard
+        </a>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            No medical history available yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Doctor</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Diagnosis</th>
+                        <th>Medicines</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.AppointmentDate.ToString("dd-MM-yyyy")</td>
+
+                            <td>@item.DoctorName</td>
+
+                            <td>@item.Department</td>
+
+                            <td>
+
+                                @if (item.Status == "Completed")
+                                {
+                                    <span class="badge bg-success">
+                                        @item.Status
+                                    </span>
+                                }
+                                else if (item.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">
+                                        @item.Status
+                                    </span>
+                                }
+                                else if (item.Status == "Confirmed")
+                                {
+                                    <span class="badge bg-primary">
+                                        @item.Status
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">
+                                        @item.Status
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td>@item.Disease</td>
+
+                            <td>@item.Prescription</td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+
+    <div class="text-center mt-4">
+     
+        <a asp-action="Logout" asp-controller="Patient" class="btn btn-danger">
+            Logout
+        </a>
+    </div>
+
+</div>

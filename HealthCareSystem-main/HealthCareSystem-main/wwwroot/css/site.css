@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Background Image */
+.hospital-bg {
+    background: url('/images/hospital-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Top Title */
+.header-title {
+    background: linear-gradient(#1e4f8a, #163d6b);
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+/* Menu Table */
+.menu-table {
+    width: 200px;
+    border: 2px solid #1e4f8a;
+}
+
+    .menu-table a {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        color: #1e4f8a;
+        border-bottom: 1px solid #1e4f8a;
+        text-align: center;
+        background-color: white;
+    }
+
+        .menu-table a:hover {
+            background-color: #1e4f8a;
+            color: white;
+        }
+
+/* Welcome Box */
+.welcome-box {
+    background-color: #1e4f8a;
+    color: white;
+    font-size: 22px;
+    padding: 10px 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Logo */
+.logo-img {
+    width: 150px;
+}

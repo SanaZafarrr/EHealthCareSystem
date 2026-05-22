@@ -1,0 +1,102 @@
+﻿@{
+    var appointments = ViewBag.Appointments as List<HealthCareSystem.Models.Appointment>;
+    var prescriptions = ViewBag.Prescriptions as List<HealthCareSystem.Models.Prescription>;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2 class="mb-4">📄 Patient Report: @ViewBag.PatientName</h2>
+
+        <!-- ONLY ADDED BUTTON -->
+        <a href="@Url.Action("PatientRecords","Doctor")"
+           class="btn btn-secondary">
+            ⬅ Back to Patients
+        </a>
+
+    </div>
+
+    <!-- APPOINTMENTS -->
+    <div class="card mb-4">
+
+        <div class="card-header bg-primary text-white">
+            Appointments
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered text-center">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (appointments != null)
+                    {
+                        foreach (var a in appointments)
+                        {
+                            <tr>
+                                <td>@a.AppointmentDate</td>
+                                <td>@a.Status</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- PRESCRIPTIONS -->
+    <div class="card">
+
+        <div class="card-header bg-success text-white">
+            Prescriptions
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered text-center">
+
+                <thead>
+                    <tr>
+                        <th>Diagnosis</th>
+                        <th>Medicines</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (prescriptions != null)
+                    {
+                        foreach (var p in prescriptions)
+                        {
+                            <tr>
+                                <td>@p.Diagnosis</td>
+                                <td>@p.Medicines</td>
+                                <td>@p.Notes</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

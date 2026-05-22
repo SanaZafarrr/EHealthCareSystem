@@ -1,0 +1,204 @@
+﻿@{
+    ViewData["Title"] = "Book Appointment";
+    var doctors = ViewBag.Doctors as List<HealthCareSystem.Models.Doctor>;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #E8F0FF;
+        }
+
+        .appointment-card {
+            background-color: #AAC4F5;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            padding: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #0B3C91;
+        }
+
+        .btn-primary {
+            background-color: #0B3C91;
+            border: none;
+        }
+
+        .page-heading {
+            color: #0B3C91;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5 mb-5">
+
+        <h2 class="text-center page-heading mb-4">Book an Appointment</h2>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+
+                <div class="appointment-card">
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["Success"]</div>
+                    }
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["Error"]</div>
+                    }
+
+                    <form method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label">Select Doctor</label>
+
+                            <select name="doctorId" id="doctorSelect" class="form-select" required>
+                                <option value="">Select Doctor</option>
+
+                                @foreach (var doc in doctors)
+                                {
+                                    <option value="@doc.DoctorId">
+                                        @doc.DoctorName (@doc.Department)
+                                    </option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Available Days</label>
+                            <input type="text" id="daysBox" class="form-control" readonly />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Appointment Date</label>
+
+                            <input type="date"
+                                   name="appointmentDate"
+                                   id="dateInput"
+                                   class="form-control"
+                                   min="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                   required />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary px-5">
+                                Book Appointment
+                            </button>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <a href="/Patient/HelloPatient" class="btn btn-secondary me-2">
+                                Back to Dashboard
+                            </a>
+
+                            <a href="/Account/Logout" class="btn btn-danger">
+                                Logout
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        let allowedDays = [];
+
+        // ============================
+        // DOCTOR CHANGE
+        // ============================
+        document.getElementById("doctorSelect")
+            .addEventListener("change", function () {
+
+                let doctorId = this.value;
+
+                if (doctorId === "") {
+                    document.getElementById("daysBox").value = "";
+                    allowedDays = [];
+                    return;
+                }
+
+                fetch('/Patient/GetDoctorDays?doctorId=' + doctorId)
+                    .then(res => res.json())
+                    .then(data => {
+
+                        // ✅ CLEAN DATA PROPERLY
+                        allowedDays = (data || [])
+                            .filter(d => d != null && d !== "")
+                            .map(d => d.toString().trim().toLowerCase());
+
+                        document.getElementById("daysBox").value =
+                            data.join(", ");
+                    });
+            });
+
+        // ============================
+        // DATE VALIDATION
+        // ============================
+        document.getElementById("dateInput")
+            .addEventListener("change", function () {
+
+                let doctorId =
+                    document.getElementById("doctorSelect").value;
+
+                if (doctorId === "") {
+                    alert("Select doctor first");
+                    this.value = "";
+                    return;
+                }
+
+                let selectedDate =
+                    new Date(this.value);
+
+                let today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (selectedDate < today) {
+                    alert("You cannot select past date!");
+                    this.value = "";
+                    return;
+                }
+
+                let maxDate = new Date();
+                maxDate.setMonth(maxDate.getMonth() + 2);
+
+                if (selectedDate > maxDate) {
+                    alert("You can only book up to 2 months ahead!");
+                    this.value = "";
+                    return;
+                }
+
+                // ✅ FIXED DAY COMPARISON
+                let dayName =
+                    selectedDate
+                        .toLocaleString('en-US', { weekday: 'long' })
+                        .trim()
+                        .toLowerCase();
+
+                if (!allowedDays.includes(dayName)) {
+                    alert("Doctor not available on this day!");
+                    this.value = "";
+                    return;
+                }
+
+            });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- ================= BACKGROUND STYLE ================= -->
+<style>
+    body {
+        background-image: url('@Url.Content("~/images/hospital-bg.jpg")');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-height: 100vh;
+    }
+
+    .menu-table {
+        background-color: white;
+        border: 2px solid #1e4f8a;
+        border-radius: 6px;
+        width: 250px;
+    }
+
+        .menu-table td a {
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+            color: #1e4f8a;
+        }
+
+            .menu-table td a:hover {
+                background-color: #1e4f8a;
+                color: white;
+                border-radius: 4px;
+            }
+
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 50px;
+        gap: 30px; /* space between table and logo */
+    }
+
+    .logo-large {
+        max-height: 360px; /* adjust to match table height */
+        width: auto;
+    }
+
+    .welcome-text, .page-title {
+        background-color: #1e4f8a;
+        color: white;
+        display: inline-block;
+        padding: 12px 45px;
+        border-radius: 6px;
+        text-align: center;
+    }
+
+    .page-title {
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+    .welcome-text {
+        font-size: 1.5rem;
+        margin-top: 30px;
+    }
+
+    .text-center-block {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+</style>
+
+<!-- ================= TOP CENTER HEADING ================= -->
+<div class="text-center-block mb-4">
+    <h1 class="page-title">HOSPITAL MANAGEMENT SYSTEM</h1>
+</div>
+
+<!-- ================= MAIN CONTENT (TABLE + LOGO) ================= -->
+<div class="container center-content">
+
+    <!-- ===== CENTER MENU TABLE ===== -->
+    <table class="table menu-table text-center">
+        <tbody>
+            <tr>
+                <td>@Html.ActionLink("Home", "Index", "Home")</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Services", "Services", "Home")</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Registration", "Registration", "Home")</td>
+            </tr>
+            <tr>
+                <td>@Html.ActionLink("Login", "Login", "Home")</td>
+         
+        </tbody>
+    </table>
+
+    <!-- ===== LOGO TO THE RIGHT ===== -->
+    <div class="text-center">
+        <img src="@Url.Content("~/images/medical-logo.png")" alt="Hospital Logo" class="logo-large" />
+    </div>
+</div>
+
+<!-- ================= WELCOME TEXT (HOME ONLY) ================= -->
+<div class="text-center-block">
+    <h3 class="welcome-text">Welcome to Our Hospital Management System</h3>
+</div>

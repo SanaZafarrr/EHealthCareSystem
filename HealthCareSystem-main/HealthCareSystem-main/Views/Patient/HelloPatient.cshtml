@@ -1,0 +1,326 @@
+﻿@{
+    ViewData["Title"] = "Patient Dashboard";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">ISB E-HealthCare</a>
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("AboutUS", "Patient")">
+                        About US
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("BookAppointment", "Patient")">
+                        Book Appointment
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("CancelAppointment", "Patient")">
+                        Cancel Appointment
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("ViewDoctors", "Patient")">
+                        View Doctors
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("PatientHistory", "Patient")">
+                        My History
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("ChatAI", "Patient")">
+                        Chat with AI
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <!-- ================= WELCOME + SLIDER ================= -->
+    <div class="container mt-4">
+
+        <div class="row align-items-center p-4 rounded shadow"
+             style="background: linear-gradient(135deg, #AAC4F5, #8CA9FF);">
+
+            <!-- LEFT TEXT -->
+            <div class="col-md-5">
+                <h2 class="fw-bold text-dark">
+                    Welcome to ISB E-Health Care
+                </h2>
+
+                <p class="text-dark fs-5">
+                    Manage your appointments, consult expert doctors,
+                    and receive <strong>AI-driven smart health assistance</strong>
+                    anytime.
+                </p>
+
+                <a href="@Url.Action("BookAppointment","Patient")"
+                   class="btn btn-primary btn-lg">
+                    Book Appointment
+                </a>
+            </div>
+
+            <!-- RIGHT CAROUSEL -->
+            <div class="col-md-7">
+                <div id="patientCarousel" class="carousel slide" data-bs-ride="carousel">
+
+                    <!-- Indicators -->
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#patientCarousel" data-bs-slide-to="0"
+                                class="active"></button>
+                        <button type="button" data-bs-target="#patientCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#patientCarousel" data-bs-slide-to="2"></button>
+                    </div>
+
+                    <!-- Slides -->
+                    <div class="carousel-inner rounded">
+
+                        <div class="carousel-item active">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA0CIa5ZhGqPAUqobCpHPbnai4QRgMkOLivg&s"
+                                 class="d-block w-100"
+                                 style="height:260px; object-fit:cover;">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7zy-n4SRYrBgnWgX8ws_YsGAB11bBmTxyLQ&s"
+                                 class="d-block w-100"
+                                 style="height:260px; object-fit:cover;">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwJeGOGsbWZEkCPIa9wRU17FaWKdYpGcPEXA&s"
+                                 class="d-block w-100"
+                                 style="height:260px; object-fit:cover;">
+                        </div>
+
+                    </div>
+
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button"
+                            data-bs-target="#patientCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button"
+                            data-bs-target="#patientCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ================= MEDICAL SERVICES ================= -->
+    <div class="container mt-5">
+
+        <h3 class="text-center fw-bold mb-4" style="color: AEDEFC;">
+            Our Medical Services
+        </h3>
+
+        <div class="row g-4">
+
+            <!-- Card 1 -->
+            <div class="col-md-3">
+                <div class="card h-100 text-center shadow-sm border-0">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3209/3209265.png"
+                             width="60" class="mb-3" />
+                        <h5 class="card-title">Cardiology</h5>
+                        <p class="card-text text-muted">
+                            Heart care services including diagnosis and treatment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-3">
+                <div class="card h-100 text-center shadow-sm border-0">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png"
+                             width="60" class="mb-3" />
+                        <h5 class="card-title">Neurology</h5>
+                        <p class="card-text text-muted">
+                            Specialized care for brain and nervous system.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-3">
+                <div class="card h-100 text-center shadow-sm border-0">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4320/4320337.png"
+                             width="60" class="mb-3" />
+                        <h5 class="card-title">General Medicine</h5>
+                        <p class="card-text text-muted">
+                            Primary healthcare for routine checkups and illness.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-md-3">
+                <div class="card h-100 text-center shadow-sm border-0">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png"
+                             width="60" class="mb-3" />
+                        <h5 class="card-title">AI Health Assistant</h5>
+                        <p class="card-text text-muted">
+                            Chat with AI for symptoms guidance and health advice.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="col-md-3">
+                <div class="card h-100 text-center shadow-sm border-0">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2913/2913991.png"
+                             width="60" class="mb-3" />
+                        <h5 class="card-title">Pediatrics</h5>
+                        <p class="card-text text-muted">
+                            Healthcare services for infants, children, and adolescents.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="col-md-3">
+                <div class="card h-100 text-center shadow-sm border-0">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3143/3143633.png"
+                             width="60" class="mb-3" />
+                        <h5 class="card-title">Orthopedics</h5>
+                        <p class="card-text text-muted">
+                            Bone, joint, and muscle treatment and rehabilitation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="col-md-3">
+                <div class="card h-100 text-center shadow-sm border-0">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png"
+                             width="60" class="mb-3" />
+                        <h5 class="card-title">Dermatology</h5>
+                        <p class="card-text text-muted">
+                            Skin care, allergy treatment, and cosmetic consultation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="col-md-3">
+                <div class="card h-100 text-center shadow-sm border-0">
+                    <div class="card-body">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3771/3771518.png"
+                             width="60" class="mb-3" />
+                        <h5 class="card-title">Mental Health</h5>
+                        <p class="card-text text-muted">
+                            Counseling, stress management, and mental wellness support.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- ================= HOSPITAL INFO SECTION ================= -->
+    <div class="container-fluid mt-5 px-0">
+        <div class="row text-white py-5"
+             style="background: linear-gradient(90deg, #2c7a7b, #319795);">
+
+            <!-- About Hospital -->
+            <div class="col-md-3 px-5">
+                <h5 class="fw-bold">About SBI Health</h5>
+                <hr class="border-light w-25">
+                <p style="font-size: 14px;">
+                    SBI Health Management is a smart healthcare system designed to
+                    provide digital appointment booking, doctor consultation,
+                    medical reports access, and AI-based health assistance for patients.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-3 px-5">
+                <h5 class="fw-bold">Quick Links</h5>
+                <hr class="border-light w-25">
+                <ul class="list-unstyled" style="font-size: 14px;">
+                    <li>➤ Book Appointment</li>
+                    <li>➤ View Doctors</li>
+                    <li>➤ AI Health ChatBot</li>
+                    <li>➤ My Medical Reports</li>
+                    <li>➤ Patient Dashboard</li>
+                </ul>
+            </div>
+
+            <!-- Departments -->
+            <div class="col-md-3 px-5">
+                <h5 class="fw-bold">Departments</h5>
+                <hr class="border-light w-25">
+                <ul class="list-unstyled" style="font-size: 14px;">
+                    <li>➤ Cardiology</li>
+                    <li>➤ Neurology</li>
+                    <li>➤ General Medicine</li>
+                    <li>➤ Pediatrics</li>
+                    <li>➤ AI Health Services</li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-3 px-5">
+                <h5 class="fw-bold">Contact Details</h5>
+                <hr class="border-light w-25">
+                <p style="font-size: 14px;">
+                    📍 Lahore, Pakistan <br />
+                    📞 +92 300 1234567 <br />
+                    ✉️ info@sbihealth.com
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
+
+
